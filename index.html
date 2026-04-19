@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutriční atlas</title>
+    <meta
+      name="description"
+      content="Interaktivní web nad Notion databází potravin a prospěšných látek."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Notion-powered nutrition system
+          </div>
+          <h1>Nutriční atlas z tvojí Notion databáze</h1>
+          <p class="hero-text">
+            Interaktivní přehled potravin, frekvence, benefitů a klíčových látek.
+            Vyber si potravinu, filtruj podle kategorií a okamžitě uvidíš, proč dává v jídelníčku smysl.
+          </p>
+          <div class="hero-actions">
+            <button class="ghost-button" id="scroll-to-foods">Prozkoumat potraviny</button>
+            <button class="ghost-button ghost-button--muted" id="scroll-to-nutrients">Přejít na látky</button>
+          </div>
+        </div>
+
+        <section class="hero-panel reveal delay-1">
+          <div class="status-pill" id="sync-pill">Načítám data z Notion…</div>
+          <div class="stats-grid" id="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Potraviny</span>
+              <strong class="stat-value">--</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Látky</span>
+              <strong class="stat-value">--</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Denní pilíře</span>
+              <strong class="stat-value">--</strong>
+            </article>
+          </div>
+        </section>
+      </header>
+
+      <main class="content-stack">
+        <section class="toolbar reveal delay-2">
+          <label class="search-field">
+            <span>Hledat</span>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Např. omega-3, brokolice, vláknina…"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="toolbar-meta">
+            <button class="segment-button is-active" data-view="foods">Potraviny</button>
+            <button class="segment-button" data-view="nutrients">Látky</button>
+          </div>
+        </section>
+
+        <section class="filters reveal delay-3" id="filters"></section>
+
+        <section class="board" id="foods-board">
+          <div class="board-column board-column--list">
+            <div class="section-heading">
+              <div>
+                <p class="kicker">Databáze potravin</p>
+                <h2>Co zařadit a proč</h2>
+              </div>
+              <p class="section-meta" id="foods-count"></p>
+            </div>
+            <div class="card-grid" id="food-grid"></div>
+          </div>
+
+          <aside class="board-column board-column--detail" id="food-detail">
+            <div class="empty-state">
+              <h3>Vyber si potravinu</h3>
+              <p>
+                Klikni na kartu vlevo a uvidíš doporučenou frekvenci, hlavní benefity a propojené látky.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="board is-hidden" id="nutrients-board">
+          <div class="board-column board-column--list">
+            <div class="section-heading">
+              <div>
+                <p class="kicker">Přehled látek</p>
+                <h2>Co tělo z těch potravin vlastně získá</h2>
+              </div>
+              <p class="section-meta" id="nutrients-count"></p>
+            </div>
+            <div class="nutrient-grid" id="nutrient-grid"></div>
+          </div>
+
+          <aside class="board-column board-column--detail" id="nutrient-detail">
+            <div class="empty-state">
+              <h3>Vyber si látku</h3>
+              <p>
+                Uvidíš, v čem je prospěšná a které potraviny z tvé Notion databáze ji přirozeně nesou.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="setup-note reveal delay-4" id="setup-note" hidden>
+          <h3>Chybí přístup do Notion API</h3>
+          <p id="setup-message"></p>
+          <ol>
+            <li>Zkopíruj <code>.env.example</code> do <code>.env</code>.</li>
+            <li>Vlož <code>NOTION_TOKEN</code> z vlastní Notion integrace.</li>
+            <li>Nasdílej obě databáze té integraci přes <code>Add connections</code>.</li>
+            <li>Spusť znovu <code>npm start</code>.</li>
+          </ol>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
