@@ -1,0 +1,9 @@
+{
+  "name": "notion-nutrition-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive nutrition site powered by Notion databases.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
